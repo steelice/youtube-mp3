@@ -7,6 +7,8 @@ const program = require('commander');
 const q = require('q');
 const ProgressBar = require('progress');
 const ffmpeg = require(fluent_ffmpeg);
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+ffmpeg.setFfmpegPath(ffmpegPath);
 const ffMetadata = require('ffmetadata');
 const ffProbe = require('node-ffprobe');
 const path = require('path');
@@ -276,11 +278,6 @@ function gatherMetadata(metadata) {
     /* Use discovered values as defaults for user to confirm */
     let album = meta.album || 'Single';
     console.log(colors.bold('\nEnter song metadata:'));
-    meta.title = prompt(colors.yellow(`Title [Default: ${meta.title}]: `), meta.title);
-    meta.artist = prompt(colors.yellow(`Artist [Default: ${meta.artist}]: `), meta.artist);
-    meta.album = prompt(colors.yellow(`Album [Default: ${album}]: `), album);
-    meta.genre = prompt(colors.yellow(`Genre [Default: ${meta.genre}]: `), meta.genre);
-    meta.date = prompt(colors.yellow(`Year [Default: ${meta.date}]: `), meta.date);
 
     return meta;
 }
